@@ -32,7 +32,8 @@ import os
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-from ..BioArchi.bioarchi import *
+from folder_root.BioArchi.bioarchi import *
+
 from ipywidgets import interact, fixed
 
 print(sitk.Version())
@@ -52,14 +53,14 @@ vessel_path = "output/BAL_final2/Vessel.nii.gz"
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mImportError[0m                               Traceback (most recent call last)
-[0;32m/var/folders/53/3cyw1xrs71n9jsyg9ztzb5lw0000gn/T/ipykernel_2311/4181132821.py[0m in [0;36m<module>[0;34m[0m
+[0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+[0;32m/var/folders/53/3cyw1xrs71n9jsyg9ztzb5lw0000gn/T/ipykernel_2394/3194408379.py[0m in [0;36m<module>[0;34m[0m
 [1;32m     14[0m [0;32mimport[0m [0mmatplotlib[0m [0;32mas[0m [0mmpl[0m[0;34m[0m[0;34m[0m[0m
 [1;32m     15[0m [0;32mimport[0m [0mmatplotlib[0m[0;34m.[0m[0mpyplot[0m [0;32mas[0m [0mplt[0m[0;34m[0m[0;34m[0m[0m
-[0;32m---> 16[0;31m [0;32mfrom[0m [0;34m.[0m[0;34m.[0m[0mBioArchi[0m[0;34m.[0m[0mbioarchi[0m [0;32mimport[0m [0;34m*[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m     17[0m [0;32mfrom[0m [0mipywidgets[0m [0;32mimport[0m [0minteract[0m[0;34m,[0m [0mfixed[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     18[0m [0;34m[0m[0m
+[0;32m---> 16[0;31m [0;32mfrom[0m [0mfolder_root[0m[0;34m.[0m[0mBioArchi[0m[0;34m.[0m[0mbioarchi[0m [0;32mimport[0m [0;34m*[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     17[0m [0;34m[0m[0m
+[1;32m     18[0m [0;32mfrom[0m [0mipywidgets[0m [0;32mimport[0m [0minteract[0m[0;34m,[0m [0mfixed[0m[0;34m[0m[0;34m[0m[0m
 
-[0;31mImportError[0m: attempted relative import with no known parent package
-ImportError: attempted relative import with no known parent package
+[0;31mModuleNotFoundError[0m: No module named 'folder_root'
+ModuleNotFoundError: No module named 'folder_root'
 

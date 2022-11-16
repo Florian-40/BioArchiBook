@@ -34,12 +34,14 @@ import scipy.stats as scipy
 from sklearn.decomposition import PCA
 
 import os
+os.chdir('/Users/florianrobert/Seafile/These/Python/BioArchi')
 
 %matplotlib widget
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-from ..BioArchi.bioarchi import *
+from bioarchi import *
+
 from ipywidgets import interact, fixed
 
 print(sitk.Version())
