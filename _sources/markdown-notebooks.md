@@ -18,12 +18,9 @@ kernelspec:
 Here, we use BAL stack studied in a previous publication. 
 See [Deciphering tumour tissue organization by 3D electron microscopy and machine learning](https://www.nature.com/articles/s42003-021-02919-z) for more details.
 
-## Test
-
-With MyST Markdown, you can define code cells with a directive like so:
 
 ```{code-cell}ipython3
-:tags: ["hide-input"]
+:tags: ["hide-cell"]
 import SimpleITK as sitk
 
 import numpy as np
@@ -58,6 +55,7 @@ label_cells_complete_cleaned_path = "output/BAL_final2/label_cells_complete_clea
 data_path = "output/BAL_final2/all_data_BAL.csv"
 contour_path = "output/BAL_final2/contour_cells.nii.gz"
 vessel_path = "output/BAL_final2/Vessel.nii.gz"
+contour=2
 
 ```
 
@@ -68,6 +66,88 @@ in-line with the rest of your content.
 ```{seealso}
 Jupyter Book uses [Jupytext](https://jupytext.readthedocs.io/en/latest/) to convert text-based files to notebooks, and can support [many other text-based notebook files](https://jupyterbook.org/file-types/jupytext.html).
 ```
+
+## Volume
+
+In this section we analyze volume of complete cells and their nuclei. With these graphs we can conclude an inverse correlation between volume of complete cells and their distance to vessel.
+
+```{code-cell}ipython3
+:tags: ["hide-input"]
+
+# read data frame 
+df = pd.read_csv(data_path, index_col=0)
+    
+    
+############################################## data for slice by slice display ########################
+label_vessel2 = sitk.ReadImage(vessel_path)
+contour_cells = sitk.ReadImage(contour_path)
+    
+label_nuclei_cleaned = sitk.ReadImage(label_nuclei_path)
+label_cells_complete_cleaned = sitk.ReadImage(label_cells_complete_cleaned_path)
+label_cells_with_complete_nuclei = sitk.ReadImage(label_cells_with_complete_nuclei_path)
+    
+    
+    
+############################################# VOLUME FOR COMPLETE CELLS AND THEIR NUCLEI ###############################
+########################################################################################################################
+    
+# Correlation graph for cells 
+stat = df.loc[:,['Volume of cell', 'Distance of cell to vessel']]
+stat =stat.loc[df.loc[:,'Volume of cell'].notnull(),:]
+plt.figure()
+slope, intercept, r_value, pv, se = stats.linregress(stat.iloc[:,1].tolist(), stat.iloc[:,0].tolist())
+sns.regplot(data=stat, x= stat.columns[1], y=stat.columns[0], ci=None, line_kws={'label':'$y=%3.7s*x+%3.7s$'%(slope, intercept)})
+plt.xlabel('Distance to vessel ($\mu m$)')
+plt.ylabel('Volume ($\mu m^3$)')
+plt.xlim(0,50)
+plt.ylim(0,2000)
+plt.title ('Correlation between volume of complete cells \n and distance from their center of gravity to vessel.')
+plt.legend()
+plt.show()
+
+print(stats.spearmanr(stat.iloc[:,0].values, stat.iloc[:,1].values))
+    
+    
+    
+# Correlation graph for nuclei 
+stat = df.loc[:,['Volume of nuclei', 'Distance of nuclei to vessel']]
+stat =stat.loc[df.loc[:,'Volume of cell'].notnull(),:]
+
+plt.figure()
+slope, intercept, r_value, pv, se = stats.linregress(stat.iloc[:,1].tolist(), stat.iloc[:,0].tolist())
+sns.regplot(data=stat, x= stat.columns[1], y=stat.columns[0], ci=None, line_kws={'label':'$y=%3.7s*x+%3.7s$'%(slope, intercept)})
+plt.xlabel('Distance to vessel ($\mu m$)')
+plt.ylabel('Volume ($\mu m^3$)')
+plt.xlim(0,50)
+plt.ylim(0,500)
+plt.title ('Correlation between volume of nuclei \n and disstance from their center of gravity to vessel.')
+plt.legend()
+plt.show()
+
+print(stats.spearmanr(stat.iloc[:,0].values, stat.iloc[:,1].values))
+    
+    
+# Slice by slice display of cells colored by volume of cells. 
+data = df.loc[:,'Volume of cell']
+data =data.loc[df.loc[:,'Volume of cell'].notnull()]
+    
+
+#plt.figure()
+volume_cells_complete_cleaned = simple_display_slice_by_slice(
+            contour_cells, 
+            label_vessel2,
+            data, 
+            data_3D = False, 
+            label_cells_complete_cleaned = label_cells_complete_cleaned ,
+            title = 'Cell sizes related to distance from blood capillary', 
+            legend_title='Volume (in $\mu m ^3$)', 
+           figsize=(8,4))
+plt.show()
+    
+   
+
+```
+
 
 ## Create a notebook with MyST Markdown
 
