@@ -1,3 +1,10 @@
 jupyter-book
 matplotlib
 numpy
+SimpleITK
+scipy
+pandas
+seaborn
+sklearn
+os
+ipywidgets
