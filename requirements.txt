@@ -6,5 +6,4 @@ scipy
 pandas
 seaborn
 sklearn
-os
 ipywidgets
