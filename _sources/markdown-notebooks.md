@@ -72,7 +72,7 @@ Jupyter Book uses [Jupytext](https://jupytext.readthedocs.io/en/latest/) to conv
 In this section we analyze volume of complete cells and their nuclei. With these graphs we can conclude an inverse correlation between volume of complete cells and their distance to vessel.
 
 ```{code-cell}ipython3
-:tags: ["hide-input"]
+:tags: ["hide-input", "thebe-init"]
 
 # read data frame 
 df = pd.read_csv(data_path, index_col=0)
