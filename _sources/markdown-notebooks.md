@@ -13,18 +13,50 @@ kernelspec:
   name: python3
 ---
 
-# Notebooks with MyST Markdown
+# Tumor tissue organization with BAL stack
 
-Jupyter Book also lets you write text-based notebooks using MyST Markdown.
-See [the Notebooks with MyST Markdown documentation](https://jupyterbook.org/file-types/myst-notebooks.html) for more detailed instructions.
-This page shows off a notebook written in MyST Markdown.
+Here, we use BAL stack studied in a previous publication. 
+See [Deciphering tumour tissue organization by 3D electron microscopy and machine learning](https://www.nature.com/articles/s42003-021-02919-z) for more details.
 
-## An example cell
+## Test
 
 With MyST Markdown, you can define code cells with a directive like so:
 
-```{code-cell}
-print(2 + 2)
+```{code-cell}ipython3
+:tags: ["hide-input"]
+import SimpleITK as sitk
+
+import numpy as np
+import pandas as pd 
+import scipy.ndimage as ndimage
+import seaborn as sns
+import scipy.stats as scipy
+from sklearn.decomposition import PCA
+
+import os
+
+%matplotlib widget
+
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+from ..BioArchi.bioarchi import *
+from ipywidgets import interact, fixed
+
+print(sitk.Version())
+
+
+mpl.rc('figure', max_open_warning = 0)
+
+label_nuclei_path = "output/BAL_final2/label_nuclei_cleaned.nii.gz"
+label_cells_with_complete_nuclei_path = "output/BAL_final2/label_cells_with_complete_nuclei.nii.gz"
+label_cells_complete_cleaned_path = "output/BAL_final2/label_cells_complete_cleaned.nii.gz"
+
+#background_path = "/Users/florianrobert/MEGAsync/Thèse/Donnees_SEM_2022/Task001_Nuclei/imagesTr/BAL_0000.nii.gz"
+
+data_path = "output/BAL_final2/all_data_BAL.csv"
+contour_path = "output/BAL_final2/contour_cells.nii.gz"
+vessel_path = "output/BAL_final2/Vessel.nii.gz"
+
 ```
 
 When your book is built, the contents of any `{code-cell}` blocks will be

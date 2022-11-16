@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Notebooks with MyST Markdown &#8212; Tumor tissue organisation.</title>
+    <title>Tumor tissue organization with BAL stack &#8212; Tumor tissue organisation.</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -125,7 +125,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Notebooks with MyST Markdown
+   Tumor tissue organization with BAL stack
   </a>
  </li>
 </ul>
@@ -352,8 +352,8 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#an-example-cell">
-   An example cell
+  <a class="reference internal nav-link" href="#test">
+   Test
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -375,7 +375,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Notebooks with MyST Markdown</h1>
+                <h1>Tumor tissue organization with BAL stack</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -386,8 +386,8 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#an-example-cell">
-   An example cell
+  <a class="reference internal nav-link" href="#test">
+   Test
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -410,22 +410,61 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="notebooks-with-myst-markdown">
-<h1>Notebooks with MyST Markdown<a class="headerlink" href="#notebooks-with-myst-markdown" title="Permalink to this headline">#</a></h1>
-<p>Jupyter Book also lets you write text-based notebooks using MyST Markdown.
-See <a class="reference external" href="https://jupyterbook.org/file-types/myst-notebooks.html">the Notebooks with MyST Markdown documentation</a> for more detailed instructions.
-This page shows off a notebook written in MyST Markdown.</p>
-<section id="an-example-cell">
-<h2>An example cell<a class="headerlink" href="#an-example-cell" title="Permalink to this headline">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="tumor-tissue-organization-with-bal-stack">
+<h1>Tumor tissue organization with BAL stack<a class="headerlink" href="#tumor-tissue-organization-with-bal-stack" title="Permalink to this headline">#</a></h1>
+<p>Here, we use BAL stack studied in a previous publication.
+See <a class="reference external" href="https://www.nature.com/articles/s42003-021-02919-z">Deciphering tumour tissue organization by 3D electron microscopy and machine learning</a> for more details.</p>
+<section id="test">
+<h2>Test<a class="headerlink" href="#test" title="Permalink to this headline">#</a></h2>
 <p>With MyST Markdown, you can define code cells with a directive like so:</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">SimpleITK</span> <span class="k">as</span> <span class="nn">sitk</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
+<span class="kn">import</span> <span class="nn">scipy.ndimage</span> <span class="k">as</span> <span class="nn">ndimage</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">scipy</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> widget
+
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">..BioArchi.bioarchi</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">fixed</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">sitk</span><span class="o">.</span><span class="n">Version</span><span class="p">())</span>
+
+
+<span class="n">mpl</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;figure&#39;</span><span class="p">,</span> <span class="n">max_open_warning</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="n">label_nuclei_path</span> <span class="o">=</span> <span class="s2">&quot;output/BAL_final2/label_nuclei_cleaned.nii.gz&quot;</span>
+<span class="n">label_cells_with_complete_nuclei_path</span> <span class="o">=</span> <span class="s2">&quot;output/BAL_final2/label_cells_with_complete_nuclei.nii.gz&quot;</span>
+<span class="n">label_cells_complete_cleaned_path</span> <span class="o">=</span> <span class="s2">&quot;output/BAL_final2/label_cells_complete_cleaned.nii.gz&quot;</span>
+
+<span class="c1">#background_path = &quot;/Users/florianrobert/MEGAsync/Thèse/Donnees_SEM_2022/Task001_Nuclei/imagesTr/BAL_0000.nii.gz&quot;</span>
+
+<span class="n">data_path</span> <span class="o">=</span> <span class="s2">&quot;output/BAL_final2/all_data_BAL.csv&quot;</span>
+<span class="n">contour_path</span> <span class="o">=</span> <span class="s2">&quot;output/BAL_final2/contour_cells.nii.gz&quot;</span>
+<span class="n">vessel_path</span> <span class="o">=</span> <span class="s2">&quot;output/BAL_final2/Vessel.nii.gz&quot;</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">53</span><span class="o">/</span><span class="mi">3</span><span class="n">cyw1xrs71n9jsyg9ztzb5lw0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_2311</span><span class="o">/</span><span class="mf">4181132821.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="ne">---&gt; </span><span class="mi">16</span> <span class="kn">from</span> <span class="nn">..BioArchi.bioarchi</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">fixed</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> 
+
+<span class="ne">ImportError</span>: attempted relative import with no known parent package
 </pre></div>
 </div>
 </div>
